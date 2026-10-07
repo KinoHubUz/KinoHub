@@ -279,4 +279,564 @@ header{
   padding:22px;
   border-radius:18px;
   background:linear-gradient(135deg,#17130a,#111217);
- 
+  border:1px solid #332d1b;
+}
+
+.serial-banner h2{
+  color:#ffcc00;
+  margin-bottom:7px;
+}
+
+.serial-banner p{
+  color:#aaa;
+  font-size:14px;
+}
+
+.empty{
+  display:none;
+  text-align:center;
+  color:#888;
+  padding:50px;
+}
+
+footer{
+  border-top:1px solid #252731;
+  text-align:center;
+  padding:30px;
+  color:#777;
+}
+
+@media(max-width:600px){
+
+  .nav{
+    flex-direction:column;
+  }
+
+  .logo{
+    font-size:23px;
+  }
+
+  .hero{
+    margin:15px;
+    min-height:300px;
+    padding:30px 25px;
+  }
+
+  .hero h1{
+    font-size:34px;
+  }
+
+  .main-tabs{
+    overflow-x:auto;
+  }
+
+  .main-tab{
+    white-space:nowrap;
+  }
+
+  .movies{
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+
+  .poster{
+    height:220px;
+  }
+
+  .info{
+    padding:10px;
+  }
+
+  .info h3{
+    font-size:15px;
+  }
+
+  .watch{
+    font-size:12px;
+    padding:10px 5px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<div class="logo">
+KINO<span>HUB</span> 🎬
+</div>
+
+<div class="search">
+
+<input
+id="search"
+type="text"
+placeholder="🔎 Kino yoki serial qidirish..."
+onkeyup="searchMovies()"
+>
+
+</div>
+
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<div class="hero-content">
+
+<small>🎬 KINOHUB</small>
+
+<h1>Sevimli kinolaringiz bir joyda</h1>
+
+<p>
+Yangi filmlar va mashhur seriallarni
+qulay tarzda toping.
+</p>
+
+<a href="#content" class="hero-btn">
+Tomosha qilish
+</a>
+
+</div>
+
+</section>
+
+
+<main class="container" id="content">
+
+<div class="main-tabs">
+
+<button
+class="main-tab active"
+onclick="showSection('moviesSection',this)">
+🎬 Kinolar
+</button>
+
+<button
+class="main-tab"
+onclick="showSection('seriesSection',this)">
+📺 Seriallar
+</button>
+
+</div>
+
+
+<!-- KINOLAR -->
+
+<section id="moviesSection" class="content-section active">
+
+<div class="title">
+<h2>🎞 Kinolar</h2>
+</div>
+
+<div class="categories">
+
+<button
+class="active"
+onclick="filterMovies('all',this)">
+Barchasi
+</button>
+
+<button onclick="filterMovies('Jangari',this)">
+Jangari
+</button>
+
+<button onclick="filterMovies('Drama',this)">
+Drama
+</button>
+
+<button onclick="filterMovies('Komediya',this)">
+Komediya
+</button>
+
+<button onclick="filterMovies('Fantastika',this)">
+Fantastika
+</button>
+
+</div>
+
+
+<div class="movies">
+
+
+<!-- DOCTOR STRANGE -->
+
+<div class="movie" data-genre="Fantastika">
+
+<div class="poster">
+
+<img
+src="https://image.tmdb.org/t/p/w500/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg"
+alt="Doctor Strange 2">
+
+<div class="rating">
+⭐ 8.7
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Doctor Strange 2</h3>
+
+<div class="meta">
+2022 • Fantastika
+</div>
+
+<a
+href="https://t.me/Kino_hubUz/2"
+target="_blank"
+rel="noopener"
+class="watch">
+▶ Telegramda ko‘rish
+</a>
+
+</div>
+
+</div>
+
+
+<!-- ACTION MOVIE -->
+
+<div class="movie" data-genre="Jangari">
+
+<div class="poster">
+
+<img
+src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=600&q=80"
+alt="Action Movie">
+
+<div class="rating">
+⭐ 8.5
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Action Movie</h3>
+
+<div class="meta">
+2026 • Jangari
+</div>
+
+<a href="#" class="watch">
+▶ Telegramda ko‘rish
+</a>
+
+</div>
+
+</div>
+
+
+<!-- LAST STORY -->
+
+<div class="movie" data-genre="Drama">
+
+<div class="poster">
+
+<img
+src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80"
+alt="Last Story">
+
+<div class="rating">
+⭐ 9.0
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Last Story</h3>
+
+<div class="meta">
+2026 • Drama
+</div>
+
+<a href="#" class="watch">
+▶ Telegramda ko‘rish
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SERIALAR -->
+
+<section id="seriesSection" class="content-section">
+
+<div class="serial-banner">
+
+<h2>📺 Seriallar</h2>
+
+<p>
+Eng mashhur seriallarning qismlarini
+shu yerdan toping va tomosha qiling.
+</p>
+
+</div>
+
+
+<div class="title">
+<h2>⚡ Loki — 1-fasl</h2>
+</div>
+
+
+<div class="movies">
+
+
+<!-- LOKI 1 -->
+
+<div class="movie">
+
+<div class="poster">
+
+<img
+src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg"
+alt="Loki 1 qism">
+
+<div class="rating">
+⭐ 8.6
+</div>
+
+<div class="episode">
+1-QISM
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Loki — 1-qism</h3>
+
+<div class="meta">
+1-fasl • 2021 • Fantastika
+</div>
+
+<a
+href="https://t.me/Kino_hubUz/4"
+target="_blank"
+rel="noopener"
+class="watch">
+▶ Telegramda ko‘rish
+</a>
+
+</div>
+
+</div>
+
+
+<!-- LOKI 2 -->
+
+<div class="movie">
+
+<div class="poster">
+
+<img
+src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg"
+alt="Loki 2 qism">
+
+<div class="rating">
+⭐ 8.7
+</div>
+
+<div class="episode">
+2-QISM
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Loki — 2-qism</h3>
+
+<div class="meta">
+1-fasl • 2021 • Fantastika
+</div>
+
+<a
+href="https://t.me/Kino_hubUz/5"
+target="_blank"
+rel="noopener"
+class="watch">
+▶ Telegramda ko‘rish
+</a>
+
+</div>
+
+</div>
+
+
+<!-- LOKI 3 -->
+
+<div class="movie">
+
+<div class="poster">
+
+<img
+src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg"
+alt="Loki 3 qism">
+
+<div class="rating">
+⭐ 8.8
+</div>
+
+<div class="episode">
+3-QISM
+</div>
+
+</div>
+
+<div class="info">
+
+<h3>Loki — 3-qism</h3>
+
+<div class="meta">
+1-fasl • 2021 • Fantastika
+</div>
+
+<a
+href="https://t.me/Kino_hubUz/6"
+target="_blank"
+rel="noopener"
+class="watch">
+▶ Telegramda ko‘rish
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div class="empty" id="empty">
+😔 Kino yoki serial topilmadi
+</div>
+
+</main>
+
+
+<footer>
+© 2026 KinoHub 🎬
+</footer>
+
+
+<script>
+
+function showSection(sectionId,button){
+
+document
+.querySelectorAll(".content-section")
+.forEach(section=>{
+section.classList.remove("active");
+});
+
+document
+.getElementById(sectionId)
+.classList.add("active");
+
+document
+.querySelectorAll(".main-tab")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+document.getElementById("empty").style.display="none";
+}
+
+
+function searchMovies(){
+
+let text =
+document
+.getElementById("search")
+.value
+.toLowerCase();
+
+let movies =
+document.querySelectorAll(".movie");
+
+let found=false;
+
+movies.forEach(movie=>{
+
+let title =
+movie
+.querySelector("h3")
+.innerText
+.toLowerCase();
+
+if(title.includes(text)){
+
+movie.style.display="block";
+found=true;
+
+}else{
+
+movie.style.display="none";
+
+}
+
+});
+
+document.getElementById("empty").style.display =
+found ? "none" : "block";
+}
+
+
+function filterMovies(genre,button){
+
+document
+.querySelectorAll(".categories button")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+let movies =
+document.querySelectorAll("#moviesSection .movie");
+
+let found=false;
+
+movies.forEach(movie=>{
+
+if(
+genre==="all" ||
+movie.dataset.genre===genre
+){
+
+movie.style.display="block";
+found=true;
+
+}else{
+
+movie.style.display="none";
+
+}
+
+});
+
+document.getElementById("empty").style.display =
+found ? "none" : "block";
+}
+
+</script>
+
+</body>
+  </html>
