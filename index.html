@@ -19,14 +19,14 @@ body{
   color:white;
 }
 
-/* HEADER */
 header{
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(8,9,13,.96);
+  background:rgba(8,9,13,.97);
   border-bottom:1px solid #252731;
   padding:15px;
+  backdrop-filter:blur(15px);
 }
 
 .nav{
@@ -64,7 +64,6 @@ header{
   font-size:15px;
 }
 
-/* HERO */
 .hero{
   max-width:1100px;
   min-height:350px;
@@ -112,11 +111,43 @@ header{
   font-weight:bold;
 }
 
-/* MAIN */
 .container{
   max-width:1100px;
   margin:auto;
   padding:10px 20px 50px;
+}
+
+.main-tabs{
+  display:flex;
+  gap:12px;
+  margin:25px 0;
+}
+
+.main-tab{
+  padding:12px 25px;
+  border-radius:30px;
+  border:1px solid #333640;
+  background:#15171e;
+  color:#ddd;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
+  transition:.3s;
+}
+
+.main-tab:hover,
+.main-tab.active{
+  background:#ffcc00;
+  color:#111;
+  border-color:#ffcc00;
+}
+
+.content-section{
+  display:none;
+}
+
+.content-section.active{
+  display:block;
 }
 
 .title{
@@ -127,7 +158,6 @@ header{
   font-size:26px;
 }
 
-/* CATEGORIES */
 .categories{
   display:flex;
   gap:10px;
@@ -151,7 +181,6 @@ header{
   color:#111;
 }
 
-/* MOVIES */
 .movies{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
@@ -169,6 +198,7 @@ header{
 .movie:hover{
   transform:translateY(-6px);
   border-color:#ffcc00;
+  box-shadow:0 10px 30px rgba(255,204,0,.12);
 }
 
 .poster{
@@ -199,6 +229,18 @@ header{
   font-weight:bold;
 }
 
+.episode{
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  background:#ffcc00;
+  color:#111;
+  padding:6px 9px;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:bold;
+}
+
 .info{
   padding:14px;
 }
@@ -224,353 +266,17 @@ header{
   text-decoration:none;
   font-weight:bold;
   font-size:14px;
+  transition:.3s;
 }
 
 .watch:hover{
   background:#168bc0;
+  transform:scale(1.02);
 }
 
-/* EMPTY */
-.empty{
-  display:none;
-  text-align:center;
-  color:#888;
-  padding:50px;
-}
-
-/* FOOTER */
-footer{
-  border-top:1px solid #252731;
-  text-align:center;
-  padding:30px;
-  color:#777;
-}
-
-/* MOBILE */
-@media(max-width:600px){
-
-  .nav{
-    flex-direction:column;
-  }
-
-  .logo{
-    font-size:23px;
-  }
-
-  .hero{
-    margin:15px;
-    min-height:300px;
-    padding:30px 25px;
-  }
-
-  .hero h1{
-    font-size:34px;
-  }
-
-  .movies{
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-  }
-
-  .poster{
-    height:220px;
-  }
-
-  .info{
-    padding:10px;
-  }
-
-  .info h3{
-    font-size:15px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-
-  <div class="nav">
-
-    <div class="logo">
-      KINO<span>HUB</span> 🎬
-    </div>
-
-    <div class="search">
-
-      <input
-        id="search"
-        type="text"
-        placeholder="🔎 Kino qidirish..."
-        onkeyup="searchMovies()"
-      >
-
-    </div>
-
-  </div>
-
-</header>
-
-
-<section class="hero">
-
-  <div class="hero-content">
-
-    <small>🎬 KINOHUB</small>
-
-    <h1>Sevimli kinolaringiz bir joyda</h1>
-
-    <p>
-      Yangi filmlar va mashhur kinolarni
-      qulay tarzda toping.
-    </p>
-
-    <a href="#movies" class="hero-btn">
-      Kinolarni ko‘rish
-    </a>
-
-  </div>
-
-</section>
-
-
-<main class="container">
-
-  <div class="title">
-    <h2>🎞 Kinolar</h2>
-  </div>
-
-
-  <div class="categories">
-
-    <button
-      class="active"
-      onclick="filterMovies('all',this)">
-      Barchasi
-    </button>
-
-    <button onclick="filterMovies('Jangari',this)">
-      Jangari
-    </button>
-
-    <button onclick="filterMovies('Drama',this)">
-      Drama
-    </button>
-
-    <button onclick="filterMovies('Komediya',this)">
-      Komediya
-    </button>
-
-    <button onclick="filterMovies('Fantastika',this)">
-      Fantastika
-    </button>
-
-  </div>
-
-
-  <div class="movies" id="movies">
-
-    <!-- DOCTOR STRANGE 2 -->
-
-    <div class="movie" data-genre="Fantastika">
-
-      <div class="poster">
-
-        <img
-          src="https://image.tmdb.org/t/p/w500/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg"
-          alt="Doctor Strange 2"
-        >
-
-        <div class="rating">
-          ⭐ 8.7
-        </div>
-
-      </div>
-
-      <div class="info">
-
-        <h3>Doctor Strange 2</h3>
-
-        <div class="meta">
-          2022 • Fantastika
-        </div>
-
-        <a
-          href="https://t.me/Kino_hubUz/2"
-          target="_blank"
-          rel="noopener"
-          class="watch"
-        >
-          ▶ Telegramda ko‘rish
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <!-- NAMUNA KINO -->
-
-    <div class="movie" data-genre="Jangari">
-
-      <div class="poster">
-
-        <img
-          src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=600&q=80"
-          alt="Action Movie"
-        >
-
-        <div class="rating">
-          ⭐ 8.5
-        </div>
-
-      </div>
-
-      <div class="info">
-
-        <h3>Action Movie</h3>
-
-        <div class="meta">
-          2026 • Jangari
-        </div>
-
-        <a href="#" class="watch">
-          ▶ Telegramda ko‘rish
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <!-- NAMUNA DRAMA -->
-
-    <div class="movie" data-genre="Drama">
-
-      <div class="poster">
-
-        <img
-          src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=600&q=80"
-          alt="Drama"
-        >
-
-        <div class="rating">
-          ⭐ 9.0
-        </div>
-
-      </div>
-
-      <div class="info">
-
-        <h3>Last Story</h3>
-
-        <div class="meta">
-          2026 • Drama
-        </div>
-
-        <a href="#" class="watch">
-          ▶ Telegramda ko‘rish
-        </a>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="empty" id="empty">
-    😔 Kino topilmadi
-  </div>
-
-</main>
-
-
-<footer>
-  © 2026 KinoHub 🎬
-</footer>
-
-
-<script>
-
-function searchMovies(){
-
-  let text =
-    document
-    .getElementById("search")
-    .value
-    .toLowerCase();
-
-  let movies =
-    document.querySelectorAll(".movie");
-
-  let found=false;
-
-  movies.forEach(movie=>{
-
-    let title =
-      movie
-      .querySelector("h3")
-      .innerText
-      .toLowerCase();
-
-    if(title.includes(text)){
-
-      movie.style.display="block";
-      found=true;
-
-    }else{
-
-      movie.style.display="none";
-
-    }
-
-  });
-
-  document.getElementById("empty").style.display =
-    found ? "none" : "block";
-}
-
-
-function filterMovies(genre,button){
-
-  document
-  .querySelectorAll(".categories button")
-  .forEach(btn=>{
-    btn.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  let movies =
-    document.querySelectorAll(".movie");
-
-  let found=false;
-
-  movies.forEach(movie=>{
-
-    if(
-      genre==="all" ||
-      movie.dataset.genre===genre
-    ){
-
-      movie.style.display="block";
-      found=true;
-
-    }else{
-
-      movie.style.display="none";
-
-    }
-
-  });
-
-  document.getElementById("empty").style.display =
-    found ? "none" : "block";
-}
-
-</script>
-
-</body>
-  </html>
+.serial-banner{
+  margin:10px 0 25px;
+  padding:22px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#17130a,#111217);
+ 
