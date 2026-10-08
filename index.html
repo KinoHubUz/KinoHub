@@ -14,43 +14,74 @@
   font-family:Arial,sans-serif;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  background:#08090d;
+  background:#07080c;
   color:white;
 }
+
+/* HEADER */
 
 header{
   position:sticky;
   top:0;
   z-index:100;
-  background:rgba(8,9,13,.97);
+  background:rgba(7,8,12,.94);
   border-bottom:1px solid #252731;
-  padding:15px;
-  backdrop-filter:blur(15px);
+  padding:13px 15px;
+  backdrop-filter:blur(18px);
 }
 
 .nav{
-  max-width:1100px;
+  max-width:1200px;
   margin:auto;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
+  gap:20px;
 }
+
+/* MODERN LOGO */
 
 .logo{
-  font-size:25px;
-  font-weight:bold;
-  color:#ffcc00;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:-1px;
+  white-space:nowrap;
 }
 
-.logo span{
+.logo-icon{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  background:linear-gradient(135deg,#ffdf38,#ff9d00);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#111;
+  font-size:21px;
+  box-shadow:0 5px 20px rgba(255,190,0,.25);
+}
+
+.logo-text{
   color:white;
 }
 
+.logo-text span{
+  color:#ffcc00;
+}
+
+/* SEARCH */
+
 .search{
   width:100%;
-  max-width:420px;
+  max-width:430px;
 }
 
 .search input{
@@ -58,46 +89,55 @@ header{
   padding:13px 18px;
   border-radius:30px;
   border:1px solid #333640;
-  background:#15171e;
+  background:#14161d;
   color:white;
   outline:none;
   font-size:15px;
+  transition:.25s;
 }
 
+.search input:focus{
+  border-color:#ffcc00;
+  box-shadow:0 0 0 3px rgba(255,204,0,.08);
+}
+
+/* HERO */
+
 .hero{
-  max-width:1100px;
-  min-height:350px;
+  max-width:1200px;
+  min-height:360px;
   margin:25px auto;
-  padding:40px;
+  padding:45px;
   border-radius:25px;
   display:flex;
   align-items:center;
 
   background:
-  linear-gradient(90deg,#08090d 5%,rgba(8,9,13,.7),rgba(8,9,13,.1)),
+  linear-gradient(90deg,#07080c 4%,rgba(7,8,12,.82),rgba(7,8,12,.18)),
   url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1400&q=80")
   center/cover;
 }
 
 .hero-content{
-  max-width:560px;
+  max-width:580px;
 }
 
 .hero small{
   color:#ffcc00;
   font-weight:bold;
-  letter-spacing:2px;
+  letter-spacing:3px;
 }
 
 .hero h1{
   font-size:45px;
   margin:12px 0;
+  line-height:1.08;
 }
 
 .hero p{
   color:#ccc;
   line-height:1.6;
-  margin-bottom:20px;
+  margin-bottom:22px;
 }
 
 .hero-btn{
@@ -108,13 +148,23 @@ header{
   border-radius:10px;
   text-decoration:none;
   font-weight:bold;
+  transition:.25s;
 }
 
+.hero-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 25px rgba(255,204,0,.2);
+}
+
+/* CONTAINER */
+
 .container{
-  max-width:1100px;
+  max-width:1200px;
   margin:auto;
   padding:10px 20px 50px;
 }
+
+/* MAIN TABS */
 
 .main-tabs{
   display:flex;
@@ -149,6 +199,8 @@ header{
   display:block;
 }
 
+/* TITLE */
+
 .title{
   margin:25px 0 18px;
 }
@@ -156,6 +208,8 @@ header{
 .title h2{
   font-size:26px;
 }
+
+/* CATEGORIES */
 
 .categories{
   display:flex;
@@ -172,6 +226,7 @@ header{
   background:#15171e;
   color:#ddd;
   cursor:pointer;
+  transition:.25s;
 }
 
 .categories button.active,
@@ -180,11 +235,15 @@ header{
   color:#111;
 }
 
+/* 4 TA USTUN */
+
 .movies{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
 }
+
+/* MOVIE CARD */
 
 .movie{
   background:#12141a;
@@ -192,86 +251,112 @@ header{
   border-radius:15px;
   overflow:hidden;
   transition:.3s;
+  cursor:pointer;
 }
 
 .movie:hover{
-  transform:translateY(-6px);
+  transform:translateY(-5px);
   border-color:#ffcc00;
-  box-shadow:0 10px 30px rgba(255,204,0,.12);
+  box-shadow:0 12px 35px rgba(255,204,0,.12);
 }
+
+.movie.selected{
+  outline:2px solid #ffcc00;
+}
+
+/* POSTER */
 
 .poster{
   height:270px;
   position:relative;
   overflow:hidden;
+  background:#191b22;
 }
 
 .poster img{
   width:100%;
   height:100%;
   object-fit:cover;
-  transition:.3s;
+  display:block;
+  transition:.35s;
 }
 
 .movie:hover img{
   transform:scale(1.05);
 }
 
+/* RATING */
+
 .rating{
   position:absolute;
-  top:10px;
-  right:10px;
-  background:rgba(0,0,0,.85);
+  top:8px;
+  right:8px;
+  background:rgba(0,0,0,.88);
   color:#ffcc00;
-  padding:6px 9px;
-  border-radius:8px;
+  padding:5px 7px;
+  border-radius:7px;
   font-weight:bold;
+  font-size:12px;
 }
+
+/* EPISODE */
 
 .episode{
   position:absolute;
-  bottom:10px;
-  left:10px;
+  bottom:8px;
+  left:8px;
   background:#ffcc00;
   color:#111;
-  padding:6px 9px;
-  border-radius:7px;
-  font-size:12px;
+  padding:5px 7px;
+  border-radius:6px;
+  font-size:11px;
   font-weight:bold;
 }
 
+/* INFO */
+
 .info{
-  padding:14px;
+  padding:12px;
 }
 
 .info h3{
-  margin-bottom:8px;
-  font-size:17px;
+  margin-bottom:7px;
+  font-size:16px;
+  line-height:1.25;
 }
 
 .meta{
   color:#888;
-  font-size:13px;
-  margin-bottom:13px;
+  font-size:12px;
+  margin-bottom:10px;
 }
+
+/* WATCH */
 
 .watch{
   display:block;
   text-align:center;
-  padding:11px;
-  border-radius:9px;
+  padding:9px 5px;
+  border-radius:8px;
   background:#229ed9;
   color:white;
   text-decoration:none;
   font-weight:bold;
-  font-size:14px;
-  transition:.3s;
+  font-size:12px;
+  transition:.2s;
 }
 
 .watch:hover{
   background:#168bc0;
-  transform:scale(1.02);
 }
+
+.coming{
+  background:#333640;
+  color:#bbb;
+  cursor:default;
+}
+
+/* SERIAL BANNER */
 
 .serial-banner{
   margin:10px 0 25px;
@@ -291,12 +376,97 @@ header{
   font-size:14px;
 }
 
+/* EMPTY */
+
 .empty{
   display:none;
   text-align:center;
   color:#888;
   padding:50px;
 }
+
+/* MODAL */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:rgba(0,0,0,.84);
+  backdrop-filter:blur(8px);
+  padding:20px;
+  overflow-y:auto;
+}
+
+.modal-box{
+  max-width:800px;
+  margin:40px auto;
+  background:#12141a;
+  border:1px solid #333640;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.7);
+}
+
+.modal-top{
+  display:grid;
+  grid-template-columns:240px 1fr;
+}
+
+.modal-poster{
+  width:100%;
+  height:360px;
+  object-fit:cover;
+}
+
+.modal-info{
+  padding:25px;
+}
+
+.modal-info h2{
+  font-size:28px;
+  margin-bottom:15px;
+  color:#ffcc00;
+}
+
+.modal-meta{
+  color:#aaa;
+  line-height:1.8;
+  margin-bottom:15px;
+}
+
+.modal-summary{
+  color:#ddd;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.close{
+  position:fixed;
+  right:20px;
+  top:15px;
+  z-index:600;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
+  background:#ffcc00;
+  color:#111;
+  font-size:25px;
+  cursor:pointer;
+}
+
+.modal-watch{
+  display:inline-block;
+  padding:12px 20px;
+  background:#229ed9;
+  color:white;
+  text-decoration:none;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+/* FOOTER */
 
 footer{
   border-top:1px solid #252731;
@@ -305,24 +475,54 @@ footer{
   color:#777;
 }
 
+/* MOBILDA HAM 4 TA */
+
 @media(max-width:600px){
+
+  header{
+    padding:10px;
+  }
 
   .nav{
     flex-direction:column;
+    gap:10px;
   }
 
   .logo{
-    font-size:23px;
+    font-size:21px;
+  }
+
+  .logo-icon{
+    width:34px;
+    height:34px;
+    font-size:18px;
+  }
+
+  .search{
+    max-width:none;
+  }
+
+  .search input{
+    padding:11px 15px;
   }
 
   .hero{
-    margin:15px;
-    min-height:300px;
-    padding:30px 25px;
+    margin:15px 10px;
+    min-height:280px;
+    padding:25px 20px;
   }
 
   .hero h1{
-    font-size:34px;
+    font-size:30px;
+  }
+
+  .hero p{
+    font-size:13px;
+  }
+
+  .container{
+    padding-left:8px;
+    padding-right:8px;
   }
 
   .main-tabs{
@@ -331,28 +531,97 @@ footer{
 
   .main-tab{
     white-space:nowrap;
+    padding:10px 17px;
   }
 
+  /* DOIM 4 USTUN */
+
   .movies{
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:7px;
   }
 
   .poster{
-    height:220px;
+    height:145px;
   }
 
   .info{
-    padding:10px;
+    padding:6px;
   }
 
   .info h3{
-    font-size:15px;
+    font-size:11px;
+    margin-bottom:5px;
+  }
+
+  .meta{
+    font-size:9px;
+    margin-bottom:6px;
+  }
+
+  .rating{
+    top:4px;
+    right:4px;
+    padding:3px 4px;
+    font-size:8px;
+  }
+
+  .episode{
+    bottom:4px;
+    left:4px;
+    padding:3px 4px;
+    font-size:8px;
   }
 
   .watch{
+    font-size:8px;
+    padding:7px 2px;
+  }
+
+  .modal{
+    padding:10px;
+  }
+
+  .modal-box{
+    margin:25px auto;
+  }
+
+  .modal-top{
+    grid-template-columns:110px 1fr;
+  }
+
+  .modal-poster{
+    height:170px;
+  }
+
+  .modal-info{
+    padding:12px;
+  }
+
+  .modal-info h2{
+    font-size:18px;
+  }
+
+  .modal-meta{
+    font-size:11px;
+    line-height:1.5;
+  }
+
+  .modal-summary{
     font-size:12px;
-    padding:10px 5px;
+  }
+
+  .modal-watch{
+    padding:9px 12px;
+    font-size:11px;
+  }
+
+  .close{
+    width:36px;
+    height:36px;
+    font-size:22px;
+    right:10px;
+    top:10px;
   }
 }
 </style>
@@ -361,21 +630,19 @@ footer{
 <body>
 
 <header>
-
 <div class="nav">
 
 <div class="logo">
-KINO<span>HUB</span> 🎬
+  <div class="logo-icon">▶</div>
+  <div class="logo-text">KINO<span>HUB</span></div>
 </div>
 
 <div class="search">
-
 <input
 id="search"
 type="text"
 placeholder="🔎 Kino yoki serial qidirish..."
 onkeyup="searchMovies()">
-
 </div>
 
 </div>
@@ -400,7 +667,6 @@ Tomosha qilish
 </a>
 
 </div>
-
 </section>
 
 
@@ -439,12 +705,12 @@ Barchasi
 Jangari
 </button>
 
-<button onclick="filterMovies('Komediya',this)">
-Komediya
-</button>
-
 <button onclick="filterMovies('Fantastika',this)">
 Fantastika
+</button>
+
+<button onclick="filterMovies('Komediya',this)">
+Komediya
 </button>
 
 </div>
@@ -453,308 +719,452 @@ Fantastika
 <div class="movies">
 
 
-<!-- THOR 4 -->
+<!-- 1 THOR -->
 
-<div class="movie" data-genre="Fantastika">
+<div class="movie"
+data-title="Thor Love and Thunder"
+data-year="2022"
+data-language="O‘zbekcha"
+data-duration="1 soat 58 daqiqa"
+data-rating="6.2"
+data-genre="Fantastika"
+data-summary="Thor yangi xavfga duch keladi va galaktikani himoya qilish uchun yana jangga qaytadi."
+data-watch="https://t.me/Kino_hubUz/11">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg"
-alt="Thor 4">
-
-<div class="rating">⭐ 7.8</div>
-
+<img src="https://image.tmdb.org/t/p/w500/pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg" alt="Thor Love and Thunder">
+<div class="rating">⭐ 6.2</div>
 </div>
 
 <div class="info">
-
-<h3>Thor 4</h3>
-
-<div class="meta">
-2022 • Fantastika
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/11"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<h3>Thor: Love and Thunder</h3>
+<div class="meta">2022 • Fantastika</div>
+<a href="https://t.me/Kino_hubUz/11" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
-<!-- DEADPOOL & WOLVERINE -->
+<!-- 2 DEADPOOL -->
 
-<div class="movie" data-genre="Jangari">
+<div class="movie"
+data-title="Deadpool Wolverine"
+data-year="2024"
+data-language="O‘zbekcha"
+data-duration="2 soat 8 daqiqa"
+data-rating="8.0"
+data-genre="Jangari"
+data-summary="Deadpool va Wolverine kutilmagan vaziyatda birlashib, katta xavfga qarshi kurashishga majbur bo‘ladilar."
+data-watch="https://t.me/Kino_hubUz/10">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg"
-alt="Deadpool & Wolverine">
-
+<img src="https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg" alt="Deadpool Wolverine">
 <div class="rating">⭐ 8.0</div>
-
 </div>
 
 <div class="info">
-
 <h3>Deadpool & Wolverine</h3>
-
-<div class="meta">
-2024 • Jangari
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/10"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<div class="meta">2024 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/10" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
-<!-- QASOSKORLAR 1 -->
+<!-- 3 AVENGERS 1 -->
 
-<div class="movie" data-genre="Jangari">
+<div class="movie"
+data-title="Qasoskorlar 1 Avengers"
+data-year="2012"
+data-language="O‘zbekcha"
+data-duration="2 soat 23 daqiqa"
+data-rating="8.0"
+data-genre="Jangari"
+data-summary="Yerga katta xavf kelganda, Temir odam, Kapitan Amerika, Thor, Hulk va boshqa qahramonlar bir jamoaga birlashadilar."
+data-watch="https://t.me/Kino_hubUz/12">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/6SBIoX4QwL9kQ1Qm3yJ0Y9V7cVQ.jpg"
-alt="Qasoskorlar 1">
-
+<img src="https://image.tmdb.org/t/p/w500/RyMX2wcKCBAr24UyPD7xwmjaTn.jpg" alt="Qasoskorlar 1">
 <div class="rating">⭐ 8.0</div>
-
 </div>
 
 <div class="info">
-
 <h3>Qasoskorlar 1</h3>
-
-<div class="meta">
-2012 • Jangari
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/12"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<div class="meta">2012 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/12" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
-<!-- QASOSKORLAR 2 -->
+<!-- 4 AVENGERS 2 -->
 
-<div class="movie" data-genre="Jangari">
+<div class="movie"
+data-title="Qasoskorlar 2 Age of Ultron"
+data-year="2015"
+data-language="O‘zbekcha"
+data-duration="2 soat 21 daqiqa"
+data-rating="7.3"
+data-genre="Jangari"
+data-summary="Qasoskorlar sun’iy intellektdan yaratilgan Ultron xavfiga qarshi kurashadilar."
+data-watch="https://t.me/Kino_hubUz/13">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg"
-alt="Qasoskorlar 2">
-
+<img src="https://image.tmdb.org/t/p/w500/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg" alt="Qasoskorlar 2">
 <div class="rating">⭐ 7.3</div>
-
 </div>
 
 <div class="info">
-
 <h3>Qasoskorlar 2</h3>
-
-<div class="meta">
-2015 • Jangari
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/13"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<div class="meta">2015 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/13" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
-<!-- QASOSKORLAR 3 -->
+<!-- 5 AVENGERS 3 -->
 
-<div class="movie" data-genre="Jangari">
+<div class="movie"
+data-title="Qasoskorlar 3 Infinity War"
+data-year="2018"
+data-language="O‘zbekcha"
+data-duration="2 soat 29 daqiqa"
+data-rating="8.4"
+data-genre="Jangari"
+data-summary="Thanos cheksizlik toshlarini yig‘ib, butun koinot taqdirini o‘zgartirishni rejalashtiradi. Qasoskorlar va ularning ittifoqchilari uni to‘xtatishga harakat qiladilar."
+data-watch="https://t.me/Kino_hubUz/14">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-alt="Qasoskorlar 3">
-
+<img src="https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" alt="Qasoskorlar 3">
 <div class="rating">⭐ 8.4</div>
-
 </div>
 
 <div class="info">
-
 <h3>Qasoskorlar 3</h3>
-
-<div class="meta">
-2018 • Jangari
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/14"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<div class="meta">2018 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/14" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
-<!-- QASOSKORLAR 4 -->
+<!-- 6 AVENGERS 4 -->
 
-<div class="movie" data-genre="Jangari">
+<div class="movie"
+data-title="Qasoskorlar 4 Endgame"
+data-year="2019"
+data-language="O‘zbekcha"
+data-duration="3 soat 1 daqiqa"
+data-rating="8.4"
+data-genre="Jangari"
+data-summary="Qasoskorlar Thanos bilan bo‘lgan jangdan keyingi og‘ir vaziyatni o‘zgartirish uchun so‘nggi imkoniyatlarini ishga soladilar."
+data-watch="https://t.me/Kino_hubUz/15">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg"
-alt="Qasoskorlar 4">
-
+<img src="https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg" alt="Qasoskorlar 4">
 <div class="rating">⭐ 8.4</div>
-
 </div>
 
 <div class="info">
-
 <h3>Qasoskorlar 4</h3>
-
-<div class="meta">
-2019 • Jangari
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/15"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<div class="meta">2019 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/15" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
-<!-- O‘RGIMCHAK ODAM 4 -->
+<!-- 7 SPIDER MAN BRAND NEW DAY -->
 
-<div class="movie" data-genre="Fantastika">
+<div class="movie"
+data-title="O‘rgimchak odam Spider Man Brand New Day"
+data-year="2026"
+data-language="O‘zbekcha"
+data-duration="Noma’lum"
+data-rating="—"
+data-genre="Fantastika"
+data-summary="Peter Parker Nyu-Yorkni himoya qilishda davom etadi. Yangi sirli jinoyatlar uni o‘zi kutmagan xavfli voqealar markaziga olib keladi."
+data-watch="https://t.me/Kino_hubUz/16">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"
-alt="O‘rgimchak odam 4">
-
-<div class="rating">⭐ 8.0</div>
-
+<img src="https://image.tmdb.org/t/p/w500/9JCQtDCSpPR2ld55yNlEg1VwcQo.jpg" alt="Spider Man Brand New Day">
+<div class="rating">⭐ —</div>
 </div>
 
 <div class="info">
-
-<h3>O‘rgimchak odam 4</h3>
-
-<div class="meta">
-2026 • Fantastika
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/16"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<h3>O‘rgimchak odam</h3>
+<div class="meta">2026 • Fantastika</div>
+<a href="https://t.me/Kino_hubUz/16" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
-<!-- FANTASTIC FOUR -->
+<!-- 8 FANTASTIC FOUR -->
 
-<div class="movie" data-genre="Fantastika">
+<div class="movie"
+data-title="Fantastic Four First Steps"
+data-year="2025"
+data-language="O‘zbekcha"
+data-duration="1 soat 55 daqiqa"
+data-rating="7.5"
+data-genre="Fantastika"
+data-summary="To‘rt qahramon g‘ayritabiiy kuchlarga ega bo‘lib, Yer yuzini katta xavfdan himoya qilish uchun birlashadilar."
+data-watch="https://t.me/Kino_hubUz/17">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg"
-alt="Fantastic Four">
-
+<img src="https://image.tmdb.org/t/p/w500/nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg" alt="Fantastic Four First Steps">
 <div class="rating">⭐ 7.5</div>
-
 </div>
 
 <div class="info">
-
 <h3>Fantastic Four</h3>
-
-<div class="meta">
-2025 • Fantastika
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/17"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<div class="meta">2025 • Fantastika</div>
+<a href="https://t.me/Kino_hubUz/17" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
-<!-- DOCTOR STRANGE 2 -->
+<!-- 9 DOCTOR STRANGE 2 -->
 
-<div class="movie" data-genre="Fantastika">
+<div class="movie"
+data-title="Doctor Strange 2 Multiverse"
+data-year="2022"
+data-language="O‘zbekcha"
+data-duration="2 soat 6 daqiqa"
+data-rating="8.7"
+data-genre="Fantastika"
+data-summary="Doctor Strange ko‘p olamlar orasidagi xavfli sarguzashtga kirib, katta tahdidni to‘xtatishga harakat qiladi."
+data-watch="https://t.me/Kino_hubUz/2">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg"
-alt="Doctor Strange 2">
-
+<img src="https://image.tmdb.org/t/p/w500/9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg" alt="Doctor Strange 2">
 <div class="rating">⭐ 8.7</div>
-
 </div>
 
 <div class="info">
-
 <h3>Doctor Strange 2</h3>
-
-<div class="meta">
-2022 • Fantastika
+<div class="meta">2022 • Fantastika</div>
+<a href="https://t.me/Kino_hubUz/2" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
 </div>
 
-<a
-href="https://t.me/Kino_hubUz/2"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
 
+<!-- 10 ETERNALS -->
+
+<div class="movie"
+data-title="Abadiylar Eternals"
+data-year="2021"
+data-language="O‘zbekcha"
+data-duration="2 soat 36 daqiqa"
+data-rating="6.3"
+data-genre="Fantastika"
+data-summary="Minglab yillar davomida Yerda yashirinib kelgan Abadiylar qadimgi dushmanlari Deviantlar qaytganidan so‘ng yana birlashadilar. Ular insoniyatni himoya qilish va Yer kelajagini saqlab qolish uchun kuchlarini birlashtiradilar."
+data-watch="">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/lFByFSLV5WDJEv3KabbdAF959F2.jpg" alt="Eternals">
+<div class="rating">⭐ 6.3</div>
+</div>
+
+<div class="info">
+<h3>Abadiylar</h3>
+<div class="meta">2021 • Fantastika</div>
+<div class="watch coming">⏳ Tez orada</div>
+</div>
+</div>
+
+
+<!-- 11 GUARDIANS -->
+
+<div class="movie"
+data-title="Galaktika qo‘riqchilari Guardians Galaxy"
+data-year="2014"
+data-language="O‘zbekcha"
+data-duration="2 soat 1 daqiqa"
+data-rating="8.0"
+data-genre="Fantastika"
+data-summary="Yerlik Piter Kvill sirli sharni qo‘lga kiritgach, galaktikani yo‘q qilishni istagan kuchli dushmanning nishoniga aylanadi. U Rocket, Groot, Gamora va Drax bilan birlashib, galaktikani katta xavfdan himoya qilish uchun kuchlarini birlashtiradi."
+data-watch="">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/r7vmZjiyZw9rpJMQJdXpjgiCOk9.jpg" alt="Guardians of the Galaxy">
+<div class="rating">⭐ 8.0</div>
+</div>
+
+<div class="info">
+<h3>Galaktika qo‘riqchilari</h3>
+<div class="meta">2014 • Fantastika</div>
+<div class="watch coming">⏳ Tez orada</div>
+</div>
+</div>
+
+
+<!-- 12 IRON MAN 1 -->
+
+<div class="movie"
+data-title="Temir odam Iron Man 1"
+data-year="2008"
+data-language="O‘zbekcha"
+data-duration="2 soat 6 daqiqa"
+data-rating="7.9"
+data-genre="Jangari"
+data-summary="Tony Stark og‘ir vaziyatdan so‘ng kuchli zirh yaratadi. U Temir odamga aylanib, begunoh insonlarni himoya qilishga qaror qiladi."
+data-watch="https://t.me/Kino_hubUz/20">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg" alt="Iron Man">
+<div class="rating">⭐ 7.9</div>
+</div>
+
+<div class="info">
+<h3>Temir odam 1</h3>
+<div class="meta">2008 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/20" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
+</div>
+
+
+<!-- 13 IRON MAN 2 -->
+
+<div class="movie"
+data-title="Temir odam Iron Man 2"
+data-year="2010"
+data-language="O‘zbekcha"
+data-duration="2 soat 4 daqiqa"
+data-rating="6.8"
+data-genre="Jangari"
+data-summary="Tony Stark Temir odam sifatida mashhur bo‘lib ketadi, ammo yangi dushmanlar paydo bo‘ladi. U do‘stlari bilan birga xavfli raqiblarga qarshi kurashadi."
+data-watch="https://t.me/Kino_hubUz/21">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/6WBeq4fCfn7AN0o21W9qNcRF2l9.jpg" alt="Iron Man 2">
+<div class="rating">⭐ 6.8</div>
+</div>
+
+<div class="info">
+<h3>Temir odam 2</h3>
+<div class="meta">2010 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/21" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
+</div>
+
+
+<!-- 14 IRON MAN 3 -->
+
+<div class="movie"
+data-title="Temir odam Iron Man 3"
+data-year="2013"
+data-language="O‘zbekcha"
+data-duration="2 soat 10 daqiqa"
+data-rating="7.1"
+data-genre="Jangari"
+data-summary="Tony Stark kuchli hujumdan so‘ng katta sinovga duch keladi. U o‘zining aqli, jasorati va texnologiyasi yordamida dushmanlarini yengishga va yaqinlarini himoya qilishga harakat qiladi."
+data-watch="https://t.me/Kino_hubUz/22">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/qhPtAc1TKbMPqNvcdXSOn9Bn7hZ.jpg" alt="Iron Man 3">
+<div class="rating">⭐ 7.1</div>
+</div>
+
+<div class="info">
+<h3>Temir odam 3</h3>
+<div class="meta">2013 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/22" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
+</div>
+
+
+<!-- 15 CIVIL WAR -->
+
+<div class="movie"
+data-title="Captain America Civil War Fuqarolar urushi"
+data-year="2016"
+data-language="O‘zbekcha"
+data-duration="2 soat 27 daqiqa"
+data-rating="7.8"
+data-genre="Jangari"
+data-summary="Qasoskorlar orasida hukumat nazorati masalasida kelishmovchilik yuzaga keladi. Kapitan Amerika va Temir odam turli qarashlarni tanlab, jamoani ikki guruhga bo‘lib yuboradi."
+data-watch="https://t.me/Kino_hubUz/23">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg" alt="Captain America Civil War">
+<div class="rating">⭐ 7.8</div>
+</div>
+
+<div class="info">
+<h3>Captain America: Civil War</h3>
+<div class="meta">2016 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/23" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
+</div>
+
+
+<!-- 16 DOCTOR STRANGE 1 -->
+
+<div class="movie"
+data-title="Doctor Strange 1"
+data-year="2016"
+data-language="O‘zbekcha"
+data-duration="1 soat 55 daqiqa"
+data-rating="7.5"
+data-genre="Fantastika"
+data-summary="Mashhur jarroh Stiven Strange og‘ir voqeadan so‘ng hayotini o‘zgartirishga majbur bo‘ladi. U sehr-jodu olamini o‘rganib, kuchli sehrgar sifatida shakllanadi va Yer yuzini qorong‘u kuchlardan himoya qilish uchun kurashadi."
+data-watch="https://t.me/Kino_hubUz/28">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/uGBVj3bEbCoZbDjjl9wTxcygko1.jpg" alt="Doctor Strange">
+<div class="rating">⭐ 7.5</div>
+</div>
+
+<div class="info">
+<h3>Doctor Strange 1</h3>
+<div class="meta">2016 • Fantastika</div>
+<a href="https://t.me/Kino_hubUz/28" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
+</div>
+
+
+<!-- 17 SHANG CHI -->
+
+<div class="movie"
+data-title="Shang Chi O‘n Uzuk afsonasi"
+data-year="2021"
+data-language="O‘zbekcha"
+data-duration="2 soat 12 daqiqa"
+data-rating="7.3"
+data-genre="Jangari"
+data-summary="Shang-Chi oddiy hayot kechirayotgan bo‘lsa-da, o‘tmishi uni yana ortidan quvib yetadi. U oilasining sirlarini ochib, kuchli O‘n Uzuk qurolining xavfi bilan yuzlashadi va yaqinlarini himoya qilish uchun jangga kirishadi."
+data-watch="https://t.me/Kino_hubUz/30">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg" alt="Shang Chi">
+<div class="rating">⭐ 7.3</div>
+</div>
+
+<div class="info">
+<h3>Shang-Chi</h3>
+<div class="meta">2021 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/30" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
+</div>
+
+
+<!-- 18 THUNDERBOLTS -->
+
+<div class="movie"
+data-title="Momaqaldiroq Thunderbolts"
+data-year="2025"
+data-language="O‘zbekcha"
+data-duration="2 soat 7 daqiqa"
+data-rating="7.2"
+data-genre="Jangari"
+data-summary="Turli xavfli topshiriqlarda qatnashgan qahramonlar bir jamoaga birlashishga majbur bo‘ladilar. Ular o‘tmishdagi muammolarini yengib, katta xavfga qarshi birgalikda kurashishlari kerak bo‘ladi."
+data-watch="https://t.me/Kino_hubUz/29">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg" alt="Thunderbolts">
+<div class="rating">⭐ 7.2</div>
+</div>
+
+<div class="info">
+<h3>Momaqaldiroq</h3>
+<div class="meta">2025 • Jangari</div>
+<a href="https://t.me/Kino_hubUz/29" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
@@ -768,14 +1178,11 @@ class="watch">
 <section id="seriesSection" class="content-section">
 
 <div class="serial-banner">
-
 <h2>📺 Seriallar</h2>
-
 <p>
 Eng mashhur seriallarning qismlarini
 shu yerdan toping va tomosha qiling.
 </p>
-
 </div>
 
 <div class="title">
@@ -784,111 +1191,158 @@ shu yerdan toping va tomosha qiling.
 
 <div class="movies">
 
-
 <!-- LOKI 1 -->
 
-<div class="movie">
+<div class="movie"
+data-title="Loki 1 qism"
+data-year="2021"
+data-language="O‘zbekcha"
+data-duration="50 daqiqa"
+data-rating="8.6"
+data-genre="Fantastika"
+data-summary="Loki TVA bilan tanishadi va vaqt chizig‘ini saqlash bilan bog‘liq sirli voqealarga aralashib qoladi."
+data-watch="https://t.me/Kino_hubUz/4">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg"
-alt="Loki 1 qism">
-
+<img src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg" alt="Loki 1 qism">
 <div class="rating">⭐ 8.6</div>
-
 <div class="episode">1-QISM</div>
-
 </div>
 
 <div class="info">
-
 <h3>Loki — 1-qism</h3>
-
-<div class="meta">
-1-fasl • 2021 • Fantastika
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/4"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<div class="meta">1-fasl • 2021</div>
+<a href="https://t.me/Kino_hubUz/4" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
 <!-- LOKI 2 -->
 
-<div class="movie">
+<div class="movie"
+data-title="Loki 2 qism"
+data-year="2021"
+data-language="O‘zbekcha"
+data-duration="54 daqiqa"
+data-rating="8.7"
+data-genre="Fantastika"
+data-summary="Loki TVA bilan bog‘liq vazifani bajararkan, vaqt va tashkilotning sirlarini yanada chuqurroq o‘rganadi."
+data-watch="https://t.me/Kino_hubUz/5">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg"
-alt="Loki 2 qism">
-
+<img src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg" alt="Loki 2 qism">
 <div class="rating">⭐ 8.7</div>
-
 <div class="episode">2-QISM</div>
-
 </div>
 
 <div class="info">
-
 <h3>Loki — 2-qism</h3>
-
-<div class="meta">
-1-fasl • 2021 • Fantastika
-</div>
-
-<a
-href="https://t.me/Kino_hubUz/5"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
-
+<div class="meta">1-fasl • 2021</div>
+<a href="https://t.me/Kino_hubUz/5" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
 
 <!-- LOKI 3 -->
 
-<div class="movie">
+<div class="movie"
+data-title="Loki 3 qism"
+data-year="2021"
+data-language="O‘zbekcha"
+data-duration="47 daqiqa"
+data-rating="8.8"
+data-genre="Fantastika"
+data-summary="Loki va Sylvie vaqt chizig‘i bilan bog‘liq xavfli vaziyatga tushib qoladilar va TVA haqidagi haqiqatni izlashda davom etadilar."
+data-watch="https://t.me/Kino_hubUz/6">
 
 <div class="poster">
-
-<img
-src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg"
-alt="Loki 3 qism">
-
+<img src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg" alt="Loki 3 qism">
 <div class="rating">⭐ 8.8</div>
-
 <div class="episode">3-QISM</div>
-
 </div>
 
 <div class="info">
-
 <h3>Loki — 3-qism</h3>
-
-<div class="meta">
-1-fasl • 2021 • Fantastika
+<div class="meta">1-fasl • 2021</div>
+<a href="https://t.me/Kino_hubUz/6" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
 </div>
 
-<a
-href="https://t.me/Kino_hubUz/6"
-target="_blank"
-rel="noopener"
-class="watch">
-▶ Telegramda ko‘rish
-</a>
 
+<!-- LOKI 4 -->
+
+<div class="movie"
+data-title="Loki 4 qism"
+data-year="2021"
+data-language="O‘zbekcha"
+data-duration="49 daqiqa"
+data-rating="8.8"
+data-genre="Fantastika"
+data-summary="Loki va Sylvie TVA sirlarini yanada chuqurroq bilib olishadi. Ular vaqt taqdirini o‘zgartirishga urinarkan, TVA ortidagi haqiqat haqida muhim ma’lumotlarga ega bo‘lishadi."
+data-watch="https://t.me/Kino_hubUz/24">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg" alt="Loki 4 qism">
+<div class="rating">⭐ 8.8</div>
+<div class="episode">4-QISM</div>
+</div>
+
+<div class="info">
+<h3>Loki — 4-qism</h3>
+<div class="meta">1-fasl • 2021</div>
+<a href="https://t.me/Kino_hubUz/24" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
+</div>
+
+
+<!-- LOKI 5 -->
+
+<div class="movie"
+data-title="Loki 5 qism"
+data-year="2021"
+data-language="O‘zbekcha"
+data-duration="48 daqiqa"
+data-rating="8.9"
+data-genre="Fantastika"
+data-summary="Loki vaqt oxiridagi g‘alati makonda qolib ketadi. U yerda turli xil Loki variantlari bilan uchrashib, Sylvie bilan birga qochish yo‘lini topishga harakat qiladi."
+data-watch="https://t.me/Kino_hubUz/25">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg" alt="Loki 5 qism">
+<div class="rating">⭐ 8.9</div>
+<div class="episode">5-QISM</div>
+</div>
+
+<div class="info">
+<h3>Loki — 5-qism</h3>
+<div class="meta">1-fasl • 2021</div>
+<a href="https://t.me/Kino_hubUz/25" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
+</div>
+</div>
+
+
+<!-- LOKI 6 -->
+
+<div class="movie"
+data-title="Loki 6 qism"
+data-year="2021"
+data-language="O‘zbekcha"
+data-duration="48 daqiqa"
+data-rating="9.0"
+data-genre="Fantastika"
+data-summary="Loki va Sylvie vaqtlar ortidagi sirli qal’aga yetib borishadi. Ular TVA va vaqt chizig‘ining asl yaratuvchisi haqida haqiqatni bilib olishadi."
+data-watch="https://t.me/Kino_hubUz/26">
+
+<div class="poster">
+<img src="https://image.tmdb.org/t/p/w500/voHUmluYmKyleFkTu3lOXQG702u.jpg" alt="Loki 6 qism">
+<div class="rating">⭐ 9.0</div>
+<div class="episode">6-QISM</div>
+</div>
+
+<div class="info">
+<h3>Loki — 6-qism</h3>
+<div class="meta">1-fasl • 2021</div>
+<a href="https://t.me/Kino_hubUz/26" target="_blank" class="watch" onclick="event.stopPropagation()">▶ Ko‘rish</a>
 </div>
 </div>
 
@@ -908,7 +1362,52 @@ class="watch">
 </footer>
 
 
+<!-- MODAL -->
+
+<div class="modal" id="movieModal">
+
+<button class="close" onclick="closeModal()">×</button>
+
+<div class="modal-box">
+
+<div class="modal-top">
+
+<img id="modalPoster" class="modal-poster" src="" alt="">
+
+<div class="modal-info">
+
+<h2 id="modalTitle"></h2>
+
+<div class="modal-meta">
+📅 <span id="modalYear"></span><br>
+🌐 <span id="modalLanguage"></span><br>
+⏱️ <span id="modalDuration"></span><br>
+⭐ <span id="modalRating"></span>/10<br>
+🎭 <span id="modalGenre"></span>
+</div>
+
+<p id="modalSummary" class="modal-summary"></p>
+
+<a
+id="modalWatch"
+class="modal-watch"
+target="_blank"
+rel="noopener">
+▶ Telegramda ko‘rish
+</a>
+
+</div>
+</div>
+</div>
+</div>
+
+
 <script>
+
+let selectedMovie = null;
+
+
+/* SECTION */
 
 function showSection(sectionId,button){
 
@@ -928,14 +1427,19 @@ btn.classList.remove("active");
 button.classList.add("active");
 
 document.getElementById("empty").style.display="none";
+
 }
 
+
+/* SEARCH */
 
 function searchMovies(){
 
 let text =
 document.getElementById("search")
-.value.toLowerCase();
+.value
+.toLowerCase()
+.trim();
 
 let movies =
 document.querySelectorAll(".movie");
@@ -945,8 +1449,7 @@ let found=false;
 movies.forEach(movie=>{
 
 let title =
-movie.querySelector("h3")
-.innerText.toLowerCase();
+movie.dataset.title.toLowerCase();
 
 if(title.includes(text)){
 
@@ -963,8 +1466,11 @@ movie.style.display="none";
 
 document.getElementById("empty").style.display =
 found ? "none" : "block";
+
 }
 
+
+/* FILTER */
 
 function filterMovies(genre,button){
 
@@ -1001,7 +1507,141 @@ movie.style.display="none";
 
 document.getElementById("empty").style.display =
 found ? "none" : "block";
+
 }
+
+
+/* MOVIE CLICK */
+
+document.querySelectorAll(".movie").forEach(movie=>{
+
+movie.addEventListener("click",function(){
+
+if(selectedMovie === movie){
+
+openModal(movie);
+
+selectedMovie=null;
+
+}else{
+
+document.querySelectorAll(".movie")
+.forEach(m=>{
+m.classList.remove("selected");
+});
+
+movie.classList.add("selected");
+
+selectedMovie=movie;
+
+}
+
+});
+
+});
+
+
+/* OPEN MODAL */
+
+function openModal(movie){
+
+document.getElementById("modalTitle").innerText =
+movie.dataset.title;
+
+document.getElementById("modalYear").innerText =
+movie.dataset.year;
+
+document.getElementById("modalLanguage").innerText =
+movie.dataset.language;
+
+document.getElementById("modalDuration").innerText =
+movie.dataset.duration;
+
+document.getElementById("modalRating").innerText =
+movie.dataset.rating;
+
+document.getElementById("modalGenre").innerText =
+movie.dataset.genre;
+
+document.getElementById("modalSummary").innerText =
+movie.dataset.summary;
+
+let poster =
+movie.querySelector(".poster img").src;
+
+document.getElementById("modalPoster").src =
+poster;
+
+let watch =
+movie.dataset.watch;
+
+let watchButton =
+document.getElementById("modalWatch");
+
+if(watch){
+
+watchButton.href=watch;
+watchButton.style.display="inline-block";
+
+}else{
+
+watchButton.removeAttribute("href");
+watchButton.style.display="none";
+
+}
+
+document.getElementById("movieModal")
+.style.display="block";
+
+document.body.style.overflow="hidden";
+
+}
+
+
+/* CLOSE */
+
+function closeModal(){
+
+document.getElementById("movieModal")
+.style.display="none";
+
+document.body.style.overflow="auto";
+
+document.querySelectorAll(".movie")
+.forEach(m=>{
+m.classList.remove("selected");
+});
+
+selectedMovie=null;
+
+}
+
+
+/* MODAL OUTSIDE CLICK */
+
+document.getElementById("movieModal")
+.addEventListener("click",function(e){
+
+if(e.target === this){
+
+closeModal();
+
+}
+
+});
+
+
+/* ESC */
+
+document.addEventListener("keydown",function(e){
+
+if(e.key==="Escape"){
+
+closeModal();
+
+}
+
+});
 
 </script>
 
