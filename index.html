@@ -1,624 +1,179 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090909">
-<title>KinoHub — Kino olami</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b14">
+<title>KinoHub — Kino va seriallar</title>
 <style>
-:root {
-  --bg: #090909;
-  --card: #151515;
-  --gold: #f5c451;
-  --text: #ffffff;
-  --muted: #a6a6a6;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, sans-serif;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(9,9,9,.96);
-  border-bottom: 1px solid #292929;
-  padding: 17px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--gold);
-  letter-spacing: -1px;
-}
-
-.logo span {
-  color: white;
-}
-
-.telegram {
-  text-decoration: none;
-  background: var(--gold);
-  color: #111;
-  padding: 10px 14px;
-  border-radius: 9px;
-  font-weight: bold;
-  font-size: 13px;
-}
-
-.hero {
-  padding: 55px 6% 35px;
-  background:
-    radial-gradient(ellipse at top right, #423217 0%, transparent 48%),
-    linear-gradient(135deg, #17130b, #090909 70%);
-}
-
-.hero small {
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-weight: bold;
-}
-
-.hero h1 {
-  font-size: clamp(32px, 7vw, 57px);
-  margin: 15px 0;
-  line-height: 1.08;
-}
-
-.hero h1 span {
-  color: var(--gold);
-}
-
-.hero p {
-  max-width: 500px;
-  color: #bdbdbd;
-  line-height: 1.6;
-  font-size: 14px;
-}
-
-.search-box {
-  margin-top: 25px;
-  max-width: 550px;
-  display: flex;
-  gap: 10px;
-}
-
-.search-box input {
-  flex: 1;
-  min-width: 0;
-  background: #1b1b1b;
-  border: 1px solid #393939;
-  color: white;
-  border-radius: 10px;
-  padding: 14px;
-  outline: none;
-  font-size: 14px;
-}
-
-.search-box input:focus {
-  border-color: var(--gold);
-}
-
-.search-box button {
-  border: 0;
-  background: var(--gold);
-  color: #111;
-  padding: 0 17px;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-main {
-  padding: 28px 5%;
-}
-
-.section-title {
-  font-size: 23px;
-  margin-bottom: 18px;
-}
-
-.section-title span {
-  color: var(--gold);
-}
-
-.filters {
-  display: flex;
-  gap: 9px;
-  overflow-x: auto;
-  padding-bottom: 20px;
-}
-
-.filters button {
-  flex-shrink: 0;
-  background: #171717;
-  color: #ddd;
-  border: 1px solid #333;
-  padding: 10px 15px;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
-.filters button.active,
-.filters button:hover {
-  background: var(--gold);
-  color: #111;
-  border-color: var(--gold);
-}
-
-.movie-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 20px 14px;
-}
-
-.movie {
-  min-width: 0;
-  cursor: pointer;
-  transition: transform .2s;
-}
-
-.movie:hover {
-  transform: translateY(-5px);
-}
-
-.poster {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 2 / 3;
-  border-radius: 11px;
-  background: #202020;
-  border: 1px solid #292929;
-}
-
-.poster img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform .35s;
-}
-
-.movie:hover .poster img {
-  transform: scale(1.05);
-}
-
-.poster .badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  padding: 5px 7px;
-  border-radius: 5px;
-  font-size: 10px;
-  font-weight: bold;
-  color: #111;
-  background: var(--gold);
-}
-
-.movie h3 {
-  font-size: 14px;
-  margin: 10px 0 5px;
-  line-height: 1.35;
-}
-
-.movie .meta {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.empty {
-  display: none;
-  text-align: center;
-  color: var(--muted);
-  padding: 45px 10px;
-}
-
-footer {
-  margin-top: 35px;
-  padding: 28px 5%;
-  border-top: 1px solid #292929;
-  text-align: center;
-  color: #999;
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-footer strong {
-  color: var(--gold);
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  background: rgba(0,0,0,.88);
-  padding: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modal-content {
-  position: relative;
-  background: #171717;
-  border: 1px solid #333;
-  border-radius: 16px;
-  padding: 25px;
-  width: 100%;
-  max-width: 420px;
-  max-height: 85vh;
-  overflow-y: auto;
-}
-
-.modal-content h2 {
-  color: var(--gold);
-  margin: 15px 0 10px;
-}
-
-.modal-content p {
-  color: #ccc;
-  line-height: 1.6;
-  font-size: 14px;
-}
-
-.close {
-  position: absolute;
-  top: 12px;
-  right: 15px;
-  border: none;
-  background: none;
-  color: white;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-.watch-btn {
-  display: block;
-  text-align: center;
-  background: var(--gold);
-  color: #111;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 9px;
-  padding: 13px;
-  margin-top: 20px;
-}
-
-@media (max-width: 900px) {
-  .movie-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  header {
-    padding: 14px 4%;
-  }
-
-  .logo {
-    font-size: 23px;
-  }
-
-  .hero {
-    padding: 42px 5% 30px;
-  }
-
-  main {
-    padding: 25px 4%;
-  }
-
-  .movie-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px 10px;
-  }
-
-  .movie h3 {
-    font-size: 12px;
-  }
-
-  .movie .meta {
-    font-size: 11px;
-  }
-
-  .poster .badge {
-    font-size: 9px;
-    top: 5px;
-    left: 5px;
-  }
-}
-
-@media (max-width: 360px) {
-  .movie-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .telegram {
-    font-size: 11px;
-    padding: 9px;
-  }
-}
+:root{--bg:#080b14;--panel:#121827;--line:#252e42;--text:#f5f7ff;--muted:#a0abc1;--blue:#7794ff;--cyan:#43dcff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:20;background:#080b14ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:12px 4%}
+.nav{max-width:1300px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:900;letter-spacing:-.7px;white-space:nowrap}
+.brand-icon{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(140deg,var(--cyan),var(--blue));color:#08101b;box-shadow:0 0 22px #7794ff44}
+.brand span{color:var(--cyan)}.search{width:min(390px,48vw);position:relative}.search input{width:100%;padding:12px 15px 12px 40px;background:#121827;border:1px solid var(--line);border-radius:13px;color:white;outline:none}.search input:focus{border-color:var(--blue)}.search:before{content:"⌕";position:absolute;left:14px;top:5px;font-size:25px;color:var(--muted)}
+.hero{max-width:1300px;min-height:390px;margin:24px auto 0;border-radius:24px;overflow:hidden;display:flex;align-items:end;background:linear-gradient(90deg,#080b14 0%,#080b14dd 42%,#080b1440 100%),linear-gradient(0deg,#080b14a8,transparent 65%),url("https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg") center 28%/cover}
+.hero-content{padding:clamp(24px,5vw,60px);max-width:690px}.eyebrow{color:var(--cyan);font-size:12px;font-weight:bold;letter-spacing:3px}.hero h1{font-size:clamp(34px,5vw,62px);line-height:1.02;margin:15px 0;letter-spacing:-1.5px}.hero p{color:#c1cbe0;line-height:1.65;max-width:520px}.btn{display:inline-block;border:0;border-radius:11px;padding:12px 18px;font-weight:bold;cursor:pointer}.primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#07101b}.secondary{background:#ffffff18;border:1px solid #ffffff2a;color:white;margin-left:7px}
+main{max-width:1300px;margin:auto;padding:30px 4% 55px}.tabs,.filters{display:flex;gap:9px;overflow-x:auto;padding:2px 0 13px}.tab,.filter{flex-shrink:0;background:#121827;color:#d4dbee;border:1px solid var(--line);border-radius:99px;padding:10px 17px;font-weight:bold;cursor:pointer}.tab.active,.filter.active,.tab:hover,.filter:hover{background:#7794ff2b;border-color:var(--blue);color:white}
+.section{display:none}.section.active{display:block}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:24px 0 15px}.section-heading h2{font-size:25px;margin:0}.section-heading p{font-size:12px;color:var(--muted);margin:6px 0 0}
+.movie-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}.movie{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-width:0;cursor:pointer;transition:.2s}.movie:hover{transform:translateY(-4px);border-color:#7794ff99;box-shadow:0 12px 28px #0005}.poster{aspect-ratio:2/3;background:linear-gradient(145deg,#1c2a48,#101626);position:relative;overflow:hidden}.poster img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.movie:hover .poster img{transform:scale(1.04)}.poster-fallback{display:none;position:absolute;inset:0;place-items:center;text-align:center;padding:12px;color:#d8e3ff;font-weight:bold;font-size:18px;background:radial-gradient(circle,#283c68,#101626)}.rating,.episode{position:absolute;font-size:11px;font-weight:bold;border-radius:7px;padding:5px 7px}.rating{right:7px;top:7px;background:#080b14e8;color:#ffdc7a}.episode{left:7px;bottom:7px;background:var(--cyan);color:#06111a}.info{padding:11px}.info h3{font-size:14px;line-height:1.3;margin:0 0 7px}.meta{color:var(--muted);font-size:11px;min-height:27px;margin-bottom:9px}.watch{display:block;text-align:center;border-radius:8px;background:#187eae;color:white;font-size:12px;font-weight:bold;padding:9px 4px}.watch:hover{background:#229ed9}.watch.soon{background:#30394c;color:#c5ccda}
+.empty{display:none;text-align:center;padding:45px 10px;color:var(--muted)}.series-banner{border:1px solid #283a58;border-radius:17px;padding:22px;margin:22px 0;background:linear-gradient(110deg,#17284a,#101626)}.series-banner h2{margin:0 0 8px;color:var(--cyan)}.series-banner p{color:var(--muted);margin:0;line-height:1.6}
+footer{text-align:center;border-top:1px solid var(--line);padding:28px 15px;color:#8490a8;font-size:13px}
+.modal{display:none;position:fixed;inset:0;z-index:50;background:#000c;backdrop-filter:blur(7px);padding:16px;overflow:auto}.modal-box{max-width:760px;margin:35px auto;background:#121827;border:1px solid var(--line);border-radius:19px;overflow:hidden;position:relative}.close{position:absolute;right:10px;top:10px;border:0;background:#e8f0ff;color:#101626;border-radius:50%;width:36px;height:36px;font-size:24px;z-index:2}.modal-content{display:grid;grid-template-columns:220px 1fr}.modal-poster{width:100%;height:330px;object-fit:cover;background:#1c2a48}.modal-info{padding:26px}.modal-info h2{margin:8px 0 14px;font-size:26px;color:var(--cyan)}.modal-meta{color:var(--muted);font-size:13px;line-height:1.9}.modal-summary{line-height:1.65;color:#e0e5f0;font-size:14px;margin:16px 0}.modal-link{display:inline-block;background:#187eae;color:white;padding:11px 16px;border-radius:9px;font-weight:bold}.modal-link[hidden]{display:none}
+@media(max-width:1000px){.movie-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{margin:16px 12px 0}}
+@media(max-width:650px){header{padding:10px}.nav{flex-direction:column;gap:10px}.brand{font-size:21px}.brand-icon{width:34px;height:34px}.search{width:100%}.hero{min-height:300px;margin:12px 10px 0;border-radius:18px;background-position:60% center}.hero-content{padding:23px 18px}.hero h1{font-size:32px}.hero p{font-size:13px}.hero .secondary{margin:8px 0 0}.hero .btn{padding:11px 13px;font-size:13px}main{padding:20px 10px 40px}.section-heading h2{font-size:22px}.movie-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.info{padding:7px}.info h3{font-size:12px}.meta{font-size:10px;min-height:25px}.watch{font-size:10px;padding:8px 2px}.rating,.episode{font-size:9px;padding:4px}.modal{padding:9px}.modal-box{margin:35px auto}.modal-content{grid-template-columns:115px 1fr}.modal-poster{height:175px}.modal-info{padding:13px}.modal-info h2{font-size:18px}.modal-meta{font-size:11px;line-height:1.7}.modal-summary{font-size:12px;margin:10px 0}.modal-link{font-size:12px;padding:9px 10px}}
+@media(max-width:370px){.movie-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:29px}}
 </style>
 </head>
-
 <body>
-
-<header>
-  <div class="logo">KINO<span>HUB</span></div>
-  <a class="telegram" href="https://t.me/Kino_hubUz" target="_blank">
-    Telegram ↗
-  </a>
-</header>
+<header><div class="nav">
+  <a class="brand" href="#" aria-label="KinoHub bosh sahifa"><span class="brand-icon">▶</span><div>KINO<span>HUB</span></div></a>
+  <div class="search"><input id="searchInput" type="search" placeholder="Kino yoki serial qidirish..." aria-label="Kino qidirish"></div>
+</div></header>
 
 <section class="hero">
-  <small>🎬 Kino olamiga xush kelibsiz</small>
-  <h1>Sevimli kinolaringiz<br><span>bir joyda.</span></h1>
-  <p>Yangi filmlar, superqahramonlar va seriallar olamini kashf eting. O‘zingizga yoqqan kinoni tanlang!</p>
-
-  <div class="search-box">
-    <input id="searchInput" type="search" placeholder="Kino yoki serial nomini yozing...">
-    <button onclick="searchMovies()">Qidirish</button>
+  <div class="hero-content">
+    <div class="eyebrow">KINOHUB ORIGINAL COLLECTION</div>
+    <h1>Sevimli hikoyalaring shu yerda.</h1>
+    <p>Mashhur filmlar va seriallarni toping. Kino haqida ma’lumotni oching, keyin mavjud rasmiy yoki ruxsatli tomosha manbasiga o‘ting.</p>
+    <a class="btn primary" href="#catalog">▶ Katalogni ko‘rish</a>
+    <a class="btn secondary" href="#series" onclick="switchTab('series')">📺 Seriallar</a>
   </div>
 </section>
 
-<main>
-  <h2 class="section-title">Kino <span>kutubxonasi</span></h2>
-
-  <div class="filters" id="filters">
-    <button class="active" data-category="Barchasi">Barchasi</button>
-    <button data-category="Marvel">Marvel</button>
-    <button data-category="DC">DC</button>
-    <button data-category="Serial">Seriallar</button>
-    <button data-category="Fantastika">Fantastika</button>
-    <button data-category="Drama">Drama</button>
-    <button data-category="Animatsiya">Animatsiya</button>
+<main id="catalog">
+  <div class="tabs">
+    <button class="tab active" data-tab="movies">🎬 Kinolar</button>
+    <button class="tab" data-tab="series" id="seriesTab">📺 Seriallar</button>
   </div>
-
-  <div class="movie-grid" id="movieGrid"></div>
-  <div class="empty" id="emptyMessage">😕 Bu nomdagi kino topilmadi.</div>
+  <section class="section active" id="moviesSection">
+    <div class="section-heading"><div><h2>🎞 Kinolar</h2><p>Sevimli filmingizni toping</p></div></div>
+    <div class="filters" id="filters">
+      <button class="filter active" data-genre="all">Barchasi</button>
+      <button class="filter" data-genre="Jangari">Jangari</button>
+      <button class="filter" data-genre="Fantastika">Fantastika</button>
+      <button class="filter" data-genre="Komediya">Komediya</button>
+    </div>
+    <div class="movie-grid" id="movieGrid"></div>
+  </section>
+  <section class="section" id="seriesSection">
+    <div class="series-banner"><h2>📺 Seriallar olami</h2><p>Loki serialining ikki mavsumidagi qismlar shu yerda.</p></div>
+    <div class="section-heading"><div><h2>⚡ Loki — 1-mavsum</h2><p>2021 · 6 qism</p></div></div>
+    <div class="movie-grid" id="lokiSeason1"></div>
+    <div class="section-heading"><div><h2>⚡ Loki — 2-mavsum</h2><p>2023 · 6 qism · Mavsum yakunlangan</p></div></div>
+    <div class="movie-grid" id="lokiSeason2"></div>
+  </section>
+  <div class="empty" id="emptyState">😕 Hech narsa topilmadi. Boshqa nom bilan qidirib ko‘ring.</div>
 </main>
+<footer>© 2026 KinoHub · Kino va seriallar katalogi</footer>
 
-<footer>
-  <strong>KINOHUB</strong><br>
-  Kino olami — bir joyda.<br>
-  Yangiliklar va kinolar uchun Telegram kanalimizga qo‘shiling.
-</footer>
-
-<div class="modal" id="movieModal" onclick="closeOnBackdrop(event)">
-  <div class="modal-content">
-    <button class="close" onclick="closeModal()" aria-label="Yopish">×</button>
-    <h2 id="modalTitle"></h2>
-    <p id="modalInfo"></p>
-    <a class="watch-btn" id="modalLink" href="https://t.me/Kino_hubUz" target="_blank">
-      Telegramda ko‘rish ↗
-    </a>
+<div class="modal" id="movieModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <button class="close" id="closeModal" aria-label="Yopish">×</button>
+    <div class="modal-content">
+      <img class="modal-poster" id="modalPoster" alt="">
+      <div class="modal-info">
+        <div class="eyebrow">KINOHUB DETAILS</div><h2 id="modalTitle"></h2>
+        <div class="modal-meta" id="modalMeta"></div>
+        <p class="modal-summary" id="modalSummary"></p>
+        <a class="modal-link" id="modalLink" target="_blank" rel="noopener noreferrer">▶ Telegram havolasini ochish</a>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
+const posterBase = "https://image.tmdb.org/t/p/w500/";
 const movies = [
-  {
-    title: "Qasoskorlar",
-    year: "2012",
-    category: "Marvel",
-    badge: "MARVEL",
-    poster: "https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg",
-    description: "Yer yuzini himoya qilish uchun eng kuchli qahramonlar birlashadi.",
-    link: "https://t.me/Kino_hubUz/12"
-  },
-  {
-    title: "Qasoskorlar: Ultron davri",
-    year: "2015",
-    category: "Marvel",
-    badge: "MARVEL",
-    poster: "https://image.tmdb.org/t/p/w500/4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg",
-    description: "Qasoskorlar yangi xavf — Ultronga qarshi kurashadi.",
-    link: "https://t.me/Kino_hubUz/13"
-  },
-  {
-    title: "Fantastic Four",
-    year: "Fantastika",
-    category: "Marvel",
-    badge: "MARVEL",
-    poster: "https://image.tmdb.org/t/p/w500/8HLQLILZLhDvA2Ygg5a5eZ2ayfz.jpg",
-    description: "G‘ayrioddiy kuchlarga ega bo‘lgan qahramonlar sarguzashtlari.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Eternals — Abadiylar",
-    year: "2021",
-    category: "Marvel",
-    badge: "MARVEL",
-    poster: "https://image.tmdb.org/t/p/w500/lFByFSLV5WDJEv3KabbdAF959F2.jpg",
-    description: "Ming yillar davomida yashirinib kelgan qahramonlar insoniyatni himoya qilish uchun qaytadi.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Loki",
-    year: "2021",
-    category: "Serial",
-    badge: "SERIAL",
-    poster: "https://image.tmdb.org/t/p/w500/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg",
-    description: "Loki vaqt va makon bilan bog‘liq sirli voqealarga aralashib qoladi.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Spider-Man: No Way Home",
-    year: "2021",
-    category: "Marvel",
-    badge: "MARVEL",
-    poster: "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
-    description: "Piter Parkerning hayoti kutilmagan voqealar sabab o‘zgaradi.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Doctor Strange",
-    year: "2016",
-    category: "Marvel",
-    badge: "MARVEL",
-    poster: "https://image.tmdb.org/t/p/w500/uGBVj3bEbCoZbDjjl9wTxcygko1.jpg",
-    description: "Doktor Strange sehr va boshqa olamlar sirlarini o‘rganadi.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Batman",
-    year: "2022",
-    category: "DC",
-    badge: "DC",
-    poster: "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
-    description: "Gotham shahrida jinoyatchilikka qarshi kurash boshlanadi.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Interstellar",
-    year: "2014",
-    category: "Fantastika",
-    badge: "TOP",
-    poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-    description: "Insoniyat kelajagi uchun koinotga xavfli sayohat amalga oshiriladi.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Joker",
-    year: "2019",
-    category: "Drama",
-    badge: "DRAMA",
-    poster: "https://image.tmdb.org/t/p/w500/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
-    description: "Gotham shahridagi bir insonning hayoti haqida dramatik hikoya.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Avatar",
-    year: "2009",
-    category: "Fantastika",
-    badge: "TOP",
-    poster: "https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg",
-    description: "Pandora sayyorasidagi hayratlanarli sarguzasht.",
-    link: "https://t.me/Kino_hubUz"
-  },
-  {
-    title: "Coco",
-    year: "2017",
-    category: "Animatsiya",
-    badge: "ANIMATSIYA",
-    poster: "https://image.tmdb.org/t/p/w500/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg",
-    description: "Musiqani sevuvchi bola sehrli olamga sayohat qiladi.",
-    link: "https://t.me/Kino_hubUz"
-  }
+ {title:"Thor: Love and Thunder",year:2022,genre:"Fantastika",rating:"6.2",duration:"1 soat 58 daqiqa",poster:"pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",summary:"Thor yangi xavfga duch keladi va galaktikani himoya qilish uchun yana jangga qaytadi.",url:"https://t.me/Kino_hubUz/11"},
+ {title:"Deadpool & Wolverine",year:2024,genre:"Jangari",rating:"8.0",duration:"2 soat 8 daqiqa",poster:"8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",summary:"Deadpool va Wolverine kutilmagan vaziyatda birlashib, katta xavfga qarshi kurashadilar.",url:"https://t.me/Kino_hubUz/10"},
+ {title:"Qasoskorlar 1 (Avengers)",year:2012,genre:"Jangari",rating:"8.0",duration:"2 soat 23 daqiqa",poster:"RyMX2wcKCBAr24UyPD7xwmjaTn.jpg",summary:"Yerga katta xavf kelganda, mashhur qahramonlar bir jamoaga birlashadilar.",url:"https://t.me/Kino_hubUz/12"},
+ {title:"Qasoskorlar 2: Ultron davri",year:2015,genre:"Jangari",rating:"7.3",duration:"2 soat 21 daqiqa",poster:"4ssDuvEDkSArWEdyBl2X5EHvYKU.jpg",summary:"Qasoskorlar sun’iy intellektdan yaratilgan Ultron xavfiga qarshi kurashadilar.",url:"https://t.me/Kino_hubUz/13"},
+ {title:"Qasoskorlar 3: Infinity War",year:2018,genre:"Jangari",rating:"8.4",duration:"2 soat 29 daqiqa",poster:"7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",summary:"Thanos cheksizlik toshlarini yig‘ib, butun koinot taqdirini o‘zgartirishni rejalashtiradi.",url:"https://t.me/Kino_hubUz/14"},
+ {title:"Qasoskorlar 4: Endgame",year:2019,genre:"Jangari",rating:"8.4",duration:"3 soat 1 daqiqa",poster:"or06FN3Dka5tukK1e9sl16pB3iy.jpg",summary:"Qasoskorlar Thanos bilan bo‘lgan jangdan keyin koinot taqdirini o‘zgartirish uchun so‘nggi imkoniyatlarini ishga soladilar.",url:"https://t.me/Kino_hubUz/15"},
+ {title:"O‘rgimchak odam: Brand New Day",year:2026,genre:"Fantastika",rating:"—",duration:"Noma’lum",poster:"9JCQtDCSpPR2ld55yNlEg1VwcQo.jpg",summary:"O‘rgimchak odam haqidagi yangi film. Chiqarilish vaqti hamda tafsilotlarni rasmiy manbalardan tekshiring.",url:"https://t.me/Kino_hubUz/16"},
+ {title:"Fantastic Four: First Steps",year:2025,genre:"Fantastika",rating:"7.5",duration:"1 soat 55 daqiqa",poster:"nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg",summary:"To‘rt qahramon g‘ayritabiiy kuchlarga ega bo‘lib, Yer yuzini katta xavfdan himoya qilish uchun birlashadilar.",url:"https://t.me/Kino_hubUz/17"},
+ {title:"Doctor Strange 2",year:2022,genre:"Fantastika",rating:"7.0",duration:"2 soat 6 daqiqa",poster:"9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",summary:"Doctor Strange ko‘p olamlar orasidagi xavfli sarguzashtga kirib, katta tahdidni to‘xtatishga harakat qiladi.",url:"https://t.me/Kino_hubUz/2"},
+ {title:"Abadiylar (Eternals)",year:2021,genre:"Fantastika",rating:"6.3",duration:"2 soat 36 daqiqa",poster:"lFByFSLV5WDJEv3KabbdAF959F2.jpg",summary:"Yerda minglab yillar yashirinib kelgan Abadiylar qadimgi dushmanlar qaytganida yana birlashadilar.",url:"https://t.me/Kino_hubUz/18"},
+ {title:"Galaktika qo‘riqchilari",year:2014,genre:"Fantastika",rating:"8.0",duration:"2 soat 1 daqiqa",poster:"r7vmZjiyZw9rpJMQJdXpjgiCOk9.jpg",summary:"Piter Kvill va noodatiy jamoasi galaktikani xavfli dushmandan himoya qilish uchun birlashadi.",url:""},
+ {title:"Temir odam 1",year:2008,genre:"Jangari",rating:"7.9",duration:"2 soat 6 daqiqa",poster:"78lPtwv72eTNqFW9COBYI0dWDJa.jpg",summary:"Tony Stark kuchli zirh yaratadi va Temir odamga aylanib, odamlarni himoya qilishga qaror qiladi.",url:"https://t.me/Kino_hubUz/20"},
+ {title:"Temir odam 2",year:2010,genre:"Jangari",rating:"6.8",duration:"2 soat 4 daqiqa",poster:"6WBeq4fCfn7AN0o21W9qNcRF2l9.jpg",summary:"Tony Stark yangi dushmanlar bilan yuzlashadi va o‘z texnologiyasining oqibatlarini yengishga urinadi.",url:"https://t.me/Kino_hubUz/21"},
+ {title:"Temir odam 3",year:2013,genre:"Jangari",rating:"7.1",duration:"2 soat 10 daqiqa",poster:"qhPtAc1TKbMPqNvcdXSOn9Bn7hZ.jpg",summary:"Tony Stark og‘ir sinovdan o‘tib, aqli va jasorati bilan yaqinlarini himoya qilishga urinadi.",url:"https://t.me/Kino_hubUz/22"},
+ {title:"Captain America: Civil War",year:2016,genre:"Jangari",rating:"7.8",duration:"2 soat 27 daqiqa",poster:"rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg",summary:"Qasoskorlar orasida kelishmovchilik paydo bo‘lib, jamoa ikki tomonga bo‘linadi.",url:"https://t.me/Kino_hubUz/23"},
+ {title:"Doctor Strange",year:2016,genre:"Fantastika",rating:"7.5",duration:"1 soat 55 daqiqa",poster:"uGBVj3bEbCoZbDjjl9wTxcygko1.jpg",summary:"Jarroh Stiven Strange sehr-jodu olamini o‘rganib, kuchli sehrgar sifatida shakllanadi.",url:"https://t.me/Kino_hubUz/28"},
+ {title:"Shang-Chi",year:2021,genre:"Jangari",rating:"7.3",duration:"2 soat 12 daqiqa",poster:"1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg",summary:"Shang-Chi o‘tmishi va oilasining sirlari bilan yuzlashadi.",url:"https://t.me/Kino_hubUz/30"},
+ {title:"Momaqaldiroq (Thunderbolts*)",year:2025,genre:"Jangari",rating:"7.2",duration:"2 soat 7 daqiqa",poster:"hqcexYHbiTBfDIdDWxrxPtVndBX.jpg",summary:"Turli murakkab vazifalardan o‘tgan qahramonlar katta xavfga qarshi jamoa bo‘lib kurashadilar.",url:"https://t.me/Kino_hubUz/29"},
+ {title:"Hulk",year:2003,genre:"Fantastika",rating:"5.6",duration:"2 soat 18 daqiqa",poster:"1dZ5lq6fGqv6g2XJ1z6bW5n5z5x.jpg",summary:"Olim Bryus Banner tajriba oqibatida kuchli Hulkka aylanadi va o‘z kuchini boshqarishga urinadi.",url:"https://t.me/Kino_hubUz/42"},
+ {title:"Hulk 2: The Incredible Hulk",year:2008,genre:"Fantastika",rating:"6.6",duration:"1 soat 52 daqiqa",poster:"gKzYx79y0AQTL4UAk1cBQJ3nvrm.jpg",summary:"Bryus Banner Hulkka aylanishini nazorat qilish yo‘lini izlaydi, biroq yangi dushman paydo bo‘ladi.",url:"https://t.me/Kino_hubUz/43"},
+ {title:"Qora Pantera (Black Panther)",year:2018,genre:"Jangari",rating:"7.3",duration:"2 soat 14 daqiqa",poster:"uxzzxijgPIY7slzFvMotPv8wjKA.jpg",summary:"T’Challa Vakanda taxtiga qaytib, xalqini va mamlakatining kelajagini himoya qilishga intiladi.",url:"https://t.me/Kino_hubUz/39"},
+ {title:"Kapitan Marvel",year:2019,genre:"Fantastika",rating:"6.8",duration:"2 soat 4 daqiqa",poster:"AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg",summary:"Kerol Denvers o‘z kuchlari va o‘tmishini anglab, galaktikadagi to‘qnashuvlar markaziga tushadi.",url:"https://t.me/Kino_hubUz/38"}
 ];
-
-const grid = document.getElementById("movieGrid");
-const searchInput = document.getElementById("searchInput");
-const emptyMessage = document.getElementById("emptyMessage");
-
-let activeCategory = "Barchasi";
-
-function renderMovies() {
-  const query = searchInput.value.trim().toLowerCase();
-
-  const filtered = movies.filter(movie => {
-    const matchesSearch =
-      movie.title.toLowerCase().includes(query) ||
-      movie.category.toLowerCase().includes(query) ||
-      movie.year.toLowerCase().includes(query);
-
-    const matchesCategory =
-      activeCategory === "Barchasi" ||
-      movie.category === activeCategory;
-
-    return matchesSearch && matchesCategory;
-  });
-
-  grid.innerHTML = "";
-
-  filtered.forEach(movie => {
-    const card = document.createElement("article");
-    card.className = "movie";
-
-    card.innerHTML = `
-      <div class="poster">
-        <img src="${movie.poster}"
-             alt="${movie.title}"
-             loading="lazy"
-             onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#342a16,#151515)'">
-        <span class="badge">${movie.badge}</span>
-      </div>
-      <h3></h3>
-      <div class="meta"></div>
-    `;
-
-    card.querySelector("h3").textContent = movie.title;
-    card.querySelector(".meta").textContent =
-      movie.year + " · " + movie.category;
-
-    card.addEventListener("click", () => showMovie(movie));
-    grid.appendChild(card);
-  });
-
-  emptyMessage.style.display = filtered.length ? "none" : "block";
+const loki1 = [
+ {title:"Loki — 1-fasl, 1-qism",year:2021,genre:"Fantastika",rating:"8.6",duration:"50 daqiqa",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki TVA bilan tanishadi va vaqt chiziqlari bilan bog‘liq sarguzashtga kirishadi.",url:"https://t.me/Kino_hubUz/4",episode:1},
+ {title:"Loki — 1-fasl, 2-qism",year:2021,genre:"Fantastika",rating:"8.7",duration:"54 daqiqa",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki TVA vazifasi davomida vaqt va tashkilot sirlarini o‘rganadi.",url:"https://t.me/Kino_hubUz/5",episode:2},
+ {title:"Loki — 1-fasl, 3-qism",year:2021,genre:"Fantastika",rating:"8.8",duration:"47 daqiqa",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki va Sylvie vaqt bilan bog‘liq xavfli vaziyatga tushib qoladilar.",url:"https://t.me/Kino_hubUz/6",episode:3},
+ {title:"Loki — 1-fasl, 4-qism",year:2021,genre:"Fantastika",rating:"8.8",duration:"49 daqiqa",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki va Sylvie TVA ortidagi haqiqat haqida yangi ma’lumotlarga ega bo‘lishadi.",url:"https://t.me/Kino_hubUz/24",episode:4},
+ {title:"Loki — 1-fasl, 5-qism",year:2021,genre:"Fantastika",rating:"8.9",duration:"48 daqiqa",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki vaqt oxiridagi g‘alati makonda boshqa Loki variantlari bilan uchrashadi.",url:"https://t.me/Kino_hubUz/25",episode:5},
+ {title:"Loki — 1-fasl, 6-qism",year:2021,genre:"Fantastika",rating:"9.0",duration:"48 daqiqa",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki va Sylvie vaqt taqdiri va TVA ortidagi sirlar bilan yuzlashadilar.",url:"https://t.me/Kino_hubUz/26",episode:6}
+];
+const loki2 = [
+ {title:"Loki — 2-fasl, 1-qism",year:2023,genre:"Fantastika",rating:"—",duration:"Noma’lum",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki TVA va vaqt chiziqlari bilan bog‘liq yangi muammolarni hal qilishga urinadi.",url:"https://t.me/Kino_hubUz/32",episode:1},
+ {title:"Loki — 2-fasl, 2-qism",year:2023,genre:"Fantastika",rating:"—",duration:"Noma’lum",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki va ittifoqchilari vaqt chiziqlaridagi muammolarni tekshirishda davom etadilar.",url:"https://t.me/Kino_hubUz/33",episode:2},
+ {title:"Loki — 2-fasl, 3-qism",year:2023,genre:"Fantastika",rating:"—",duration:"Noma’lum",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"TVA va vaqt chiziqlari atrofidagi sirlar yanada murakkablashadi.",url:"https://t.me/Kino_hubUz/34",episode:3},
+ {title:"Loki — 2-fasl, 4-qism",year:2023,genre:"Fantastika",rating:"—",duration:"Noma’lum",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki va jamoasi vaqt bilan bog‘liq inqirozni to‘xtatishga urinadi.",url:"https://t.me/Kino_hubUz/35",episode:4},
+ {title:"Loki — 2-fasl, 5-qism",year:2023,genre:"Fantastika",rating:"—",duration:"Noma’lum",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Loki vaqtning o‘zgarishi va do‘stlarini saqlab qolish yo‘lini izlaydi.",url:"https://t.me/Kino_hubUz/36",episode:5},
+ {title:"Loki — 2-fasl, 6-qism",year:2023,genre:"Fantastika",rating:"—",duration:"Noma’lum",poster:"voHUmluYmKyleFkTu3lOXQG702u.jpg",summary:"Ikkinchi mavsum Loki, vaqt va uning do‘stlari taqdiri haqidagi yakuniy voqealar bilan tugaydi.",url:"https://t.me/Kino_hubUz/37",episode:6}
+];
+let activeTab="movies", activeGenre="all", searchText="";
+const allSeries=[...loki1,...loki2];
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function card(item){
+ const poster=item.poster?posterBase+item.poster:"";
+ const url=item.url||"";
+ return `<article class="movie" tabindex="0" role="button" data-title="${escapeHtml(item.title)}" data-year="${item.year}" data-genre="${escapeHtml(item.genre)}" data-rating="${escapeHtml(item.rating)}" data-duration="${escapeHtml(item.duration)}" data-poster="${escapeHtml(poster)}" data-summary="${escapeHtml(item.summary)}" data-url="${escapeHtml(url)}" data-language="O‘zbekcha">
+ <div class="poster"><img src="${escapeHtml(poster)}" alt="${escapeHtml(item.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="poster-fallback">${escapeHtml(item.title)}</div><div class="rating">⭐ ${escapeHtml(item.rating)}</div>${item.episode?`<div class="episode">${item.episode}-QISM</div>`:""}</div>
+ <div class="info"><h3>${escapeHtml(item.title)}</h3><div class="meta">${item.year} • ${escapeHtml(item.genre)}</div>${url?`<a class="watch" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">▶ Havolani ochish</a>`:`<span class="watch soon">Ma’lumot</span>`}</div></article>`;
 }
-
-function searchMovies() {
-  renderMovies();
+function render(){
+ const movieGrid=document.getElementById("movieGrid");
+ const filtered=movies.filter(m=>(activeGenre==="all"||m.genre===activeGenre)&&m.title.toLowerCase().includes(searchText));
+ movieGrid.innerHTML=filtered.map(card).join("");
+ document.getElementById("lokiSeason1").innerHTML=loki1.filter(m=>m.title.toLowerCase().includes(searchText)).map(card).join("");
+ document.getElementById("lokiSeason2").innerHTML=loki2.filter(m=>m.title.toLowerCase().includes(searchText)).map(card).join("");
+ const count=activeTab==="movies"?filtered.length:(loki1.concat(loki2).filter(m=>m.title.toLowerCase().includes(searchText)).length);
+ document.getElementById("emptyState").style.display=count?"none":"block";
+ document.querySelectorAll(".movie").forEach(el=>{
+   el.addEventListener("click",()=>openModal(el));
+   el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openModal(el)}});
+ });
 }
-
-searchInput.addEventListener("input", renderMovies);
-
-document.querySelectorAll("#filters button").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll("#filters button").forEach(b => {
-      b.classList.remove("active");
-    });
-
-    button.classList.add("active");
-    activeCategory = button.dataset.category;
-    renderMovies();
-  });
-});
-
-function showMovie(movie) {
-  document.getElementById("modalTitle").textContent = movie.title;
-  document.getElementById("modalInfo").textContent =
-    movie.description + " (" + movie.year + ")";
-
-  document.getElementById("modalLink").href = movie.link;
-  document.getElementById("movieModal").classList.add("show");
-  document.body.style.overflow = "hidden";
+function switchTab(tab){
+ activeTab=tab;
+ document.getElementById("moviesSection").classList.toggle("active",tab==="movies");
+ document.getElementById("seriesSection").classList.toggle("active",tab==="series");
+ document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+ document.getElementById("emptyState").style.display="none";
+ if(tab==="series")document.getElementById("seriesSection").scrollIntoView({behavior:"smooth",block:"start"});
 }
-
-function closeModal() {
-  document.getElementById("movieModal").classList.remove("show");
-  document.body.style.overflow = "";
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
+function switchTabFromHero(){switchTab("series")}
+document.getElementById("searchInput").addEventListener("input",e=>{searchText=e.target.value.trim().toLowerCase();render()});
+document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{activeGenre=b.dataset.genre;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));render()}));
+function openModal(el){
+ document.getElementById("modalTitle").textContent=el.dataset.title;
+ document.getElementById("modalMeta").innerHTML=`📅 ${escapeHtml(el.dataset.year)}<br>🌐 ${escapeHtml(el.dataset.language)}<br>⏱️ ${escapeHtml(el.dataset.duration)}<br>⭐ ${escapeHtml(el.dataset.rating)}<br>🎭 ${escapeHtml(el.dataset.genre)}`;
+ document.getElementById("modalSummary").textContent=el.dataset.summary;
+ const p=document.getElementById("modalPoster");p.src=el.dataset.poster;p.alt=el.dataset.title;
+ const link=document.getElementById("modalLink");link.href=el.dataset.url||"#";link.hidden=!el.dataset.url;
+ document.getElementById("movieModal").style.display="block";document.body.style.overflow="hidden";
 }
-
-function closeOnBackdrop(event) {
-  if (event.target.id === "movieModal") closeModal();
-}
-
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeModal();
-});
-
-renderMovies();
+function closeModal(){document.getElementById("movieModal").style.display="none";document.body.style.overflow=""}
+document.getElementById("closeModal").addEventListener("click",closeModal);
+document.getElementById("movieModal").addEventListener("click",e=>{if(e.target.id==="movieModal")closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+render();
 </script>
-
 </body>
 </html>
